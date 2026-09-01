@@ -27,7 +27,7 @@
         {% for notebook in notebooks %}
         <!-- {{ notebook.display_name }} Notebook -->
         <div class="bg-gray-50 border border-gray-200 rounded-lg overflow-hidden">
-          <div class="bg-gray-100 p-3 font-semibold">{{ notebook.display_name }}</div>
+          <div class="bg-gray-200 p-3 font-semibold">{{ notebook.display_name }}</div>
           <div class="p-4">
             <a href="{{ notebook.html_path }}" class="inline-block bg-teal-700 hover:bg-teal-800 text-white py-1 px-3 rounded transition-colors">Open Notebook</a>
           </div>
@@ -43,7 +43,7 @@
         {% for app in apps %}
         <!-- {{ app.display_name }} App -->
         <div class="bg-gray-50 border border-gray-200 rounded-lg overflow-hidden">
-          <div class="bg-gray-100 p-3 font-semibold">{{ app.display_name }}</div>
+          <div class="bg-gray-200 p-3 font-semibold">{{ app.display_name }}</div>
           <div class="p-4">
             <a href="{{ app.html_path }}" class="inline-block bg-[#e4002b] hover:bg-[#b80022] text-white py-1 px-3 rounded transition-colors">Open App</a>
           </div>
