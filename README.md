@@ -1,68 +1,45 @@
-# marimo WebAssembly + GitHub Pages Template
+# Fundamentals of Network Theory: Exercises
 
-This template repository demonstrates how to export [marimo](https://marimo.io) notebooks to WebAssembly and deploy them to GitHub Pages.
+Hands-on exercise notebooks for _Fundamentals of Network Theory_ (Prof. Dr. Thomas Engel, [SECAN-Lab](https://www.uni.lu/fstm-en/research-groups/security-and-networking-lab/), University of Luxembourg), Winter 2026/27.
 
-## 📚 Included Examples
+**Open the exercises: https://felixsaretzky.github.io/fundamentals-network-theory-exercises/**
 
-- `apps/charts.py`: Interactive data visualization with Altair
-- `notebooks/fibonacci.py`: Interactive Fibonacci sequence calculator
-- `notebooks/penguins.py`: Interactive data analysis with Polars and marimo
+> **Status:** the notebooks currently on the site are generic examples. The course exercises are added during the semester.
 
-## 🚀 Usage
+## For students
 
-1. Fork this repository
-2. Add your marimo files to the `notebooks/` or `apps/` directory
-   1. `notebooks/` notebooks are exported with `--mode edit`
-   2. `apps/` notebooks are exported with `--mode run`
-3. Push to main branch
-4. Go to repository **Settings > Pages** and change the "Source" dropdown to "GitHub Actions"
-5. GitHub Actions will automatically build and deploy to Pages
+1. Open the link above and choose an exercise.
+2. The notebook runs entirely in your browser: nothing to install, no account needed. Everyone who opens the link works on their own private copy.
+3. Solve the tasks and check your results against the target values stated in the notebook.
+4. Download your notebook as `.py` after every session. Your progress is only stored in the browser you are using.
+5. Submit the `.py` file together with a PDF export via Moodle before the exercise session.
 
-## Including data or assets
+**Requirements and common pitfalls**
 
-To include data or assets in your notebooks, add them to the `public/` directory.
+- Use a current browser with WebAssembly enabled (Chrome, Firefox, Safari, Edge). Privacy browsers such as Tor or Mullvad block WebAssembly at stricter security levels.
+- Private or incognito windows do not keep your progress.
+- The first load takes a moment while the Python runtime is downloaded.
 
-For example, the `apps/charts.py` notebook loads an image asset from the `public/` directory.
+## Repository layout
 
-```markdown
-<img src="public/logo.png" width="200" />
-```
+| Path                           | Content                                                                    |
+| ------------------------------ | -------------------------------------------------------------------------- |
+| `notebooks/`                   | Exercise notebooks, exported in edit mode                                  |
+| `apps/`                        | Lecture demos, exported in run mode (code hidden)                          |
+| `notebooks/public/`, `apps/public/` | Data and assets, loaded via `mo.notebook_location() / "public" / "file"` |
+| `templates/tailwind.html.j2`   | Index page (title, logos, texts)                                           |
+| `.github/scripts/build.py`     | Exports all notebooks to WebAssembly and generates the index page          |
+| `.github/workflows/deploy.yml` | Builds and deploys to GitHub Pages on every push to `main`                 |
 
-And the `notebooks/penguins.py` notebook loads a CSV dataset from the `public/` directory.
-
-```python
-import polars as pl
-df = pl.read_csv(mo.notebook_location() / "public" / "penguins.csv")
-```
-
-## 🎨 Templates
-
-This repository includes several templates for the generated site:
-
-1. `index.html.j2` (default): A template with styling and a footer
-2. `bare.html.j2`: A minimal template with basic styling
-3. `tailwind.html.j2`: A minimal and lean template using Tailwind CSS
-
-To use a specific template, pass the `--template` parameter to the build script:
-
-```bash
-uv run .github/scripts/build.py --template templates/tailwind.html.j2
-```
-
-You can also create your own custom templates. See the [templates/README.md](templates/README.md) for more information.
-
-## 🧪 Testing
-
-To test the export process, run `.github/scripts/build.py` from the root directory.
+## Local preview
 
 ```bash
 uv run .github/scripts/build.py
-```
-
-This will export all notebooks in a folder called `_site/` in the root directory. Then to serve the site, run:
-
-```bash
 python -m http.server -d _site
 ```
 
-This will serve the site at `http://localhost:8000`.
+The site is then available at http://localhost:8000.
+
+## Credits
+
+Exercise track by [Felix Saretzky](https://felixsaretzky.github.io/). Built with [marimo](https://marimo.io), based on the [marimo-gh-pages-template](https://github.com/marimo-team/marimo-gh-pages-template) (Apache-2.0).

@@ -181,3 +181,6 @@ test/
 .devbox
 # enforcing strict reproducibility not suitable for template
 devbox.lock
+
+# Local Claude Code files
+.claude/
