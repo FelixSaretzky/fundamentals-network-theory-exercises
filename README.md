@@ -13,13 +13,13 @@ Hands-on exercise notebooks for _Fundamentals of Network Theory_ (Prof. Dr. Thom
 3. Solve the tasks and check your results against the target values stated in the notebook.
 4. Export your work often: press `Ctrl+S` (`Cmd+S` on Mac), then open the menu (round button with three lines, top right) → `Export…` → `Python` → `Export notebook source`. Without `Ctrl+S`/`Cmd+S` first, the downloaded file is empty.
 5. The downloaded file is always called `notebook.py`. Rename it, e.g. to `exercise00_<lastname>.py`.
-6. Submit only this `.py` file on Moodle by Sunday 23:59 before the exercise session in which it is discussed: `Add submission`, upload the file, `Save changes`, then `Submit assignment` and confirm. A draft that is never submitted does not count.
+6. Submit only this `.py` file on Moodle before the deadline announced there: `Add submission`, upload the file, `Save changes`, then `Submit assignment` and confirm. A draft that is never submitted does not count.
 
 **Requirements and common pitfalls**
 
 - Use Chrome or Firefox on a laptop, in a normal window (not private or incognito, not a tablet or phone). Privacy browsers such as Tor or Mullvad block WebAssembly at stricter security levels.
 - Reloading or closing the tab loses all your edits, even after `Ctrl+S`/`Cmd+S`. Only the downloaded `.py` file keeps your work.
-- To continue later, open your `.py` file locally with `uvx --with numpy --with wigglystuff marimo edit exercise00_<lastname>.py` (needs [uv](https://docs.astral.sh/uv/)). Do not paste it into a cell of the exercise page: marimo then adds only the changed cells, as duplicates.
+- Need a break? Press `Ctrl+S`/`Cmd+S`, then menu → `Share` → `Create WebAssembly link`, and keep the link. Opening it later restores your notebook on marimo.app. Optional: work locally, see the box on the exercise site.
 - The Stop button does not work on this site. Code that runs forever forces a reload, so export before you run long loops.
 - The first load takes a moment while the Python runtime (tens of MB) is downloaded.
 

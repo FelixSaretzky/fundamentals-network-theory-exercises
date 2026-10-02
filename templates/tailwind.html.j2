@@ -41,10 +41,35 @@
           <li>Press <kbd>Ctrl+S</kbd> (<kbd>Cmd+S</kbd> on Mac). Without this step the exported file is empty.</li>
           <li>Open the menu (round button with three lines, top right) &rarr; <em>Export&hellip;</em> &rarr; <em>Python</em> &rarr; <em>Export notebook source</em>.</li>
           <li>The downloaded file is always called <code>notebook.py</code>. Rename it, e.g. to <code>exercise00_&lt;lastname&gt;.py</code>.</li>
-          <li>Submit only this <code>.py</code> file on Moodle by Sunday 23:59 before the exercise session in which it is discussed: <em>Add submission</em>, upload the file, <em>Save changes</em>, then <em>Submit assignment</em> and confirm. A draft that is never submitted does not count.</li>
+          <li>Submit only this <code>.py</code> file on Moodle before the deadline announced there: <em>Add submission</em>, upload the file, <em>Save changes</em>, then <em>Submit assignment</em> and confirm. A draft that is never submitted does not count.</li>
         </ol>
         <p class="mt-2">Reloading or closing the tab loses all your edits, even after <kbd>Ctrl+S</kbd>/<kbd>Cmd+S</kbd>. Only the downloaded file keeps your work, so export often.</p>
       </div>
+      <!-- Take a break -->
+      <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4 text-sm">
+        <p class="font-semibold mb-2">Need a break? Save a link to your work</p>
+        <ol class="list-decimal list-inside space-y-1">
+          <li>Press <kbd>Ctrl+S</kbd> (<kbd>Cmd+S</kbd> on Mac).</li>
+          <li>Open the menu (round button with three lines, top right) &rarr; <em>Share</em> &rarr; <em>Create WebAssembly link</em>. The link is copied.</li>
+          <li>Keep the link: bookmark it or paste it into a note. It contains your code, so do not share it.</li>
+          <li>Later, open the link: your notebook opens on <code>marimo.app</code> with all your changes. Export from there as usual.</li>
+        </ol>
+      </div>
+      <!-- Work locally (optional) -->
+      <details class="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-8 text-sm">
+        <summary class="font-semibold cursor-pointer">Optional: work on your own laptop instead of the browser</summary>
+        <p class="mt-2">Not required. Locally, marimo saves your work automatically. You need two steps, the same on Windows, macOS and Linux, no admin rights.</p>
+        <p class="mt-2 font-semibold">1. Install uv (once)</p>
+        <p>macOS and Linux, in the Terminal:</p>
+        <pre class="bg-white border border-gray-200 rounded p-2 overflow-x-auto"><code>curl -LsSf https://astral.sh/uv/install.sh | sh</code></pre>
+        <p class="mt-1">Windows, in PowerShell:</p>
+        <pre class="bg-white border border-gray-200 rounded p-2 overflow-x-auto"><code>powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"</code></pre>
+        <p class="mt-1">Then close the terminal and open a new one.</p>
+        <p class="mt-2 font-semibold">2. Open your notebook</p>
+        <p>In the terminal, go to the folder with your exported file and run:</p>
+        <pre class="bg-white border border-gray-200 rounded p-2 overflow-x-auto"><code>uvx --with numpy --with wigglystuff marimo edit exercise00_lastname.py</code></pre>
+        <p class="mt-1">The first start downloads Python and marimo (1 to 2 minutes). The notebook opens in your browser. Stop it with <kbd>Ctrl+C</kbd> in the terminal. More details: <a href="https://docs.marimo.io/getting_started/installation/" target="_blank" class="underline">marimo installation guide</a>.</p>
+      </details>
       {% endif %}
 
       {% if apps %}
