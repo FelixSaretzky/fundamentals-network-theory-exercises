@@ -22,7 +22,7 @@
     <main>
       {% if notebooks %}
       <h2 class="text-xl font-bold text-center my-4">Exercises</h2>
-      <p class="text-center mb-4">Work directly in your browser, nothing to install. Download your notebook (.py) after each session and submit it together with a PDF via Moodle.</p>
+      <p class="text-center mb-4">Work directly in your browser, nothing to install. Use Chrome or Firefox on a laptop, in a normal window (not private or incognito).</p>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
         {% for notebook in notebooks %}
         <!-- {{ notebook.display_name }} Notebook -->
@@ -33,6 +33,17 @@
           </div>
         </div>
         {% endfor %}
+      </div>
+      <!-- Save and submit instructions -->
+      <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-8 text-sm">
+        <p class="font-semibold mb-2">Save and submit your work</p>
+        <ol class="list-decimal list-inside space-y-1">
+          <li>Press <kbd>Ctrl+S</kbd> (<kbd>Cmd+S</kbd> on Mac). Without this step the exported file is empty.</li>
+          <li>Open the menu (round button with three lines, top right) &rarr; <em>Export&hellip;</em> &rarr; <em>Python</em> &rarr; <em>Export notebook source</em>.</li>
+          <li>The downloaded file is always called <code>notebook.py</code>. Rename it, e.g. to <code>exercise00_&lt;lastname&gt;.py</code>.</li>
+          <li>Submit only this <code>.py</code> file on Moodle by Sunday 23:59 before the exercise session in which it is discussed: <em>Add submission</em>, upload the file, <em>Save changes</em>, then <em>Submit assignment</em> and confirm. A draft that is never submitted does not count.</li>
+        </ol>
+        <p class="mt-2">Reloading or closing the tab loses all your edits, even after <kbd>Ctrl+S</kbd>/<kbd>Cmd+S</kbd>. Only the downloaded file keeps your work, so export often.</p>
       </div>
       {% endif %}
 
@@ -54,7 +65,7 @@
     </main>
 
     <footer class="mt-10 pt-6 border-t border-gray-200 text-center text-sm text-gray-600">
-      <p class="mb-2">Fundamentals of Network Theory (Prof. Dr. Thomas Engel) &middot; Exercise track by Felix Saretzky<br>Built with <a href="https://marimo.io" target="_blank" class="text-slate-600 underline hover:text-slate-900">marimo</a>, interactive Python notebooks</p>
+      <p class="mb-2">Fundamentals of Network Theory (Prof. Dr. Thomas Engel) &middot; Exercise track by Dr.-Ing. Felix Saretzky<br>Built with <a href="https://marimo.io" target="_blank" class="text-slate-600 underline hover:text-slate-900">marimo</a>, interactive Python notebooks</p>
     </footer>
   </div>
 </body>

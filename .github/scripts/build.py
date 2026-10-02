@@ -49,7 +49,7 @@ def _export_html_wasm(notebook_path: Path, output_dir: Path, as_app: bool = Fals
     output_path: Path = notebook_path.with_suffix(".html")
 
     # Base command for marimo export
-    cmd: List[str] = ["uvx", "marimo", "export", "html-wasm", "--sandbox"]
+    cmd: List[str] = ["uvx", "marimo@latest", "export", "html-wasm", "--sandbox"]
 
     # Configure export mode based on whether it's an app or a notebook
     if as_app:
@@ -70,6 +70,10 @@ def _export_html_wasm(notebook_path: Path, output_dir: Path, as_app: bool = Fals
         # Run marimo export command
         logger.debug(f"Running command: {cmd}")
         subprocess.run(cmd, capture_output=True, text=True, check=True)
+        # marimo >= 0.25 exports with auto_instantiate off, so the page would
+        # show no outputs until "Run all". Students should see them on load.
+        html = output_file.read_text()
+        output_file.write_text(html.replace('"auto_instantiate": false', '"auto_instantiate": true'))
         logger.info(f"Successfully exported {notebook_path}")
         return True
     except subprocess.CalledProcessError as e:
