@@ -116,7 +116,7 @@ def section0_tour(CellTour, mo):
                 {
                     "cell_name": "question2",
                     "title": "Question: guess first",
-                    "description": "Before you compute, write down a guess. Then run the cell with Ctrl+Enter (Cmd+Enter on a Mac).",
+                    "description": "Guess before you compute: how many edges m does the network have, and what is the sum of all entries of A? Write both numbers into m_guess and sum_guess, then run the cell with Ctrl+Enter (Cmd+Enter on a Mac).",
                 },
                 {
                     "cell_name": "task2_adjacency",
@@ -220,8 +220,8 @@ def _(mo):
 @app.cell
 def question2():
     # TODO: your code goes here
-    m_guess = None  # a whole number
-    sum_guess = None  # a whole number
+    m_guess = None  # your guess: how many edges m does the network have?
+    sum_guess = None  # your guess: what is the sum of all entries of A?
     return m_guess, sum_guess
 
 
