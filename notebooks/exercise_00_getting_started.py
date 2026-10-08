@@ -61,12 +61,12 @@ def intro(mo):
     - ⚙️ **Given.** Context, and code you do not have to touch.
     - ❓ **Question N.** A guess you record in a variable before you compute. In the
       graded exercises a guess counts for being submitted, not for being right.
-    - ⇨ **Task N.** Code you write. The code cell below it carries
+    - ✏️ **Task N.** Code you write. The code cell below it carries
       `# TODO: your code goes here`.
     - ✅ **Check.** The self-test of the task above. It states the target value, asserts
       it and prints `✅ ... passed.`
 
-    Every section runs the same rhythm: ⚙️ then ❓ then ⇨ then ✅. A marker may be
+    Every section runs the same rhythm: ⚙️ then ❓ then ✏️ then ✅. A marker may be
     skipped, the order never changes. Longer sections run the rhythm more than once.
     """)
     return
@@ -245,8 +245,8 @@ def question2_check(m_guess, sum_guess):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ⇨ **Task 1.** Complete `adjacency_matrix(edges, n)`. Start from
-    `np.zeros((n, n), dtype=int)` and set two entries per edge, because the network is
+    ✏️ **Task 1.** Complete `adjacency_matrix(edges, n)`. Start from
+    [`np.zeros((n, n), dtype=int)`](https://numpy.org/doc/stable/reference/generated/numpy.zeros.html) and set two entries per edge, because the network is
     undirected. Mind the shift from lecture labels to numpy indices. Target: the matrix
     printed in A3, with row sums $(2, 3, 4, 2, 2, 1)$.
     """)

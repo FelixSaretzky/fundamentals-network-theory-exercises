@@ -73,6 +73,8 @@ def _export_html_wasm(notebook_path: Path, output_dir: Path, as_app: bool = Fals
         # marimo >= 0.25 exports with auto_instantiate off, so the page would
         # show no outputs until "Run all". Students should see them on load.
         html = output_file.read_text()
+        if '"auto_instantiate": false' not in html:
+            raise RuntimeError("auto_instantiate setting not found in the export, check the marimo version")
         output_file.write_text(html.replace('"auto_instantiate": false', '"auto_instantiate": true'))
         logger.info(f"Successfully exported {notebook_path}")
         return True
@@ -158,7 +160,7 @@ def _export(folder: Path, output_dir: Path, as_app: bool=False) -> List[dict]:
         return []
 
     # Find all Python files recursively in the folder
-    notebooks = list(folder.rglob("*.py"))
+    notebooks = sorted(folder.rglob("*.py"))
     logger.debug(f"Found {len(notebooks)} Python files in {folder}")
 
     # Exit if no notebooks were found
@@ -177,6 +179,9 @@ def _export(folder: Path, output_dir: Path, as_app: bool=False) -> List[dict]:
     ]
 
     logger.info(f"Successfully exported {len(notebook_data)} out of {len(notebooks)} files from {folder}")
+    if len(notebook_data) < len(notebooks):
+        # Fail the deployment instead of silently publishing a site without a notebook.
+        raise SystemExit(f"{len(notebooks) - len(notebook_data)} notebook(s) in {folder} failed to export")
     return notebook_data
 
 def main(
