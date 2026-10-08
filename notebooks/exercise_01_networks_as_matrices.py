@@ -348,7 +348,7 @@ def _(mo):
 
 
 @app.cell
-def data_folder(mo):
+def data_folder(mo, pd):
     # Where the CSV files are. On the exercise site they sit next to the notebook. Opened
     # anywhere else (a saved WebAssembly link on marimo.app, molab, your own laptop), the
     # notebook loads them from the exercise site, which needs an internet connection.
@@ -362,13 +362,26 @@ def data_folder(mo):
         _url = str(_here)
         _next_to_notebook = any(_host in _url for _host in ("felixsaretzky.github.io", "localhost", "127.0.0.1"))
         DATA = f"{_url}/public/" if _next_to_notebook else _site
-    return (DATA,)
+
+    def read_csv(name):
+        """Read one CSV file of this exercise, in the browser or on a computer."""
+        import sys
+
+        if sys.platform == "emscripten":
+            # In the browser, fetch the text first: GitHub Pages sends the files compressed,
+            # and pandas would try to unpack them a second time.
+            from pyodide.http import open_url
+
+            return pd.read_csv(open_url(DATA + name))
+        return pd.read_csv(DATA + name)
+
+    return (read_csv,)
 
 
 @app.cell
-def enron_data(DATA, pd):
-    people = pd.read_csv(DATA + "enron_people.csv")
-    emails = pd.read_csv(DATA + "enron_emails.csv")
+def enron_data(read_csv):
+    people = read_csv("enron_people.csv")
+    emails = read_csv("enron_emails.csv")
     n_people = len(people)
     NAME = people["name"].tolist()
     return NAME, emails, n_people, people
@@ -608,8 +621,8 @@ def _(mo):
 
 
 @app.cell
-def attack_data(DATA, pd):
-    uses = pd.read_csv(DATA + "attack_uses.csv")
+def attack_data(read_csv):
+    uses = read_csv("attack_uses.csv")
     ACTORS = sorted(uses["actor"].unique(), key=str.lower)
     TECHNIQUES = sorted(uses["technique_id"].unique())
     TECHNIQUE_NAME = dict(zip(uses["technique_id"], uses["technique"]))
