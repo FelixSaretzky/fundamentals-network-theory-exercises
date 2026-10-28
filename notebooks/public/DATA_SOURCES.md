@@ -22,3 +22,20 @@ Corporation. License, from the ATT&CK Terms of Use
 > use ATT&CK® for research, development, and commercial purposes. Any copy you make for
 > such purposes is authorized provided that you reproduce MITRE's copyright designation
 > and this license in any such copy.
+
+## Exercise 2
+
+`as_edges.csv`: the Internet at the level of autonomous systems (AS) on 2 January 2000, as
+seen in the BGP logs of the University of Oregon Route Views Project. One row per pair of
+ASes that exchange traffic; node ids run from 0 to 6473. The rows are copied unchanged from
+the SNAP dataset AS-733, snapshot `as20000102` (https://snap.stanford.edu/data/as-733.html),
+including its 1323 self-loops. Source: J. Leskovec, J. Kleinberg and C. Faloutsos,
+"Graphs over Time: Densification Laws, Shrinking Diameters and Possible Explanations",
+ACM SIGKDD 2005.
+
+`power_edges.csv`: the high-voltage power grid of the western United States. Nodes are
+generators, transformers and substations (ids 0 to 4940), an edge is a high-voltage
+transmission line. Compiled by D. J. Watts and S. H. Strogatz, "Collective dynamics of
+'small-world' networks", Nature 393, 440-442 (1998); obtained from the Netzschleuder
+collection (https://networks.skewed.de/net/power), which mirrors M. E. J. Newman's network
+data page with the same edges and node ids.
