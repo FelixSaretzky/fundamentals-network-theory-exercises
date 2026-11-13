@@ -80,11 +80,23 @@ def intro(mo):
     2. Where is the bottleneck? (the eigenvector of the second smallest eigenvalue)
     3. How fast does something spread? (the diffusion equation)
 
+    ⚙️ **What Exercise 2 found.** Several questions refer back to it:
+
+    - Both networks are connected: the giant component holds all nodes.
+    - Two ASes are on average 3.7 steps apart, two substations 19. A short detour (length
+      2) exists for 51 % of the Internet links, but only for 21 % of the grid lines.
+    - The Internet has hubs: 65 ASes, 1 % of all, touch 64.5 % of all connections. In the
+      grid the degrees are much more equal.
+    - After 20 % random failures, the giant component still holds 73 % of the Internet and
+      52 % of the grid. A targeted attack on the 1 % largest ASes halves the Internet's
+      giant component, while the grid only drops below one half after about 6 % of its
+      nodes are removed.
+
     **Three markers**, as before.
 
     - ⚙️ **Given.** Context, and code you do not have to change.
     - ❓ **Question.** Write your answer into the answer cell right below it: double-click
-      the text *Your answer*, write, then click outside the cell. One to three sentences
+      the text *Your answer* (or *Your proof*), write, then click outside the cell. One to three sentences
       are enough, a proof needs a few lines.
     - ✏️ **Task.** Code you write below `# TODO: your code goes here`, in place of the line
       `raise NotImplementedError(...)`. Each task states a **target**, for the karate club
@@ -953,9 +965,10 @@ def bottleneck_view(A_power, connected_components, cut_choice, np, plt, pos_powe
 def _(mo):
     mo.md(r"""
     ❓ **Question 2.3: your decision.** Compare the two networks: the sizes of the two
-    sides, the cut and the plots of the sorted Fiedler vectors. Which network has a
-    bottleneck, and which has none? What do you recommend to the operator of the network
-    with the bottleneck, and why would the same advice make no sense for the other one?
+    sides, the cut and the plots of the sorted Fiedler vectors. Which network has a clear
+    bottleneck, and which has no clear one? What do you recommend to the operator of the
+    network with the bottleneck, and why would the same advice make no sense for the other
+    one?
     Use the hubs of Exercise 2 in your explanation.
     """)
     return
@@ -1036,7 +1049,8 @@ def _(mo):
       vanish?
     - Which bar is the last one left before everything is even?
     - Start at member 11 or 16, at the edge of the club, instead of a leader. Does it take
-      longer?
+      longer? Compare the share that still has to move (left title) at the same time, for
+      example $t = 4$.
     """)
     return
 
@@ -1053,7 +1067,7 @@ def diffusion_controls(PlaySlider, mo):
         value="member 0, the instructor",
         label="start",
     )
-    time_karate = mo.ui.anywidget(PlaySlider(min_value=0, max_value=6, step=0.05, interval_ms=120))
+    time_karate = mo.ui.anywidget(PlaySlider(min_value=0, max_value=10, step=0.1, interval_ms=150))
     mo.vstack([start_member, mo.hstack([mo.md("time $t$:"), time_karate], justify="start", align="center")])
     return start_member, time_karate
 
@@ -1076,8 +1090,10 @@ def diffusion_view(A_karate, L_karate, diffusion_exact, members, np, plt, start_
         if _i < _j:
             _ax.plot([_x[_i], _x[_j]], [_y[_i], _y[_j]], color="0.85", lw=0.8, zorder=1)
     _ax.scatter(_x, _y, s=20 + 2500 * _psi, color="C3", alpha=0.75, edgecolors="k", linewidths=0.5, zorder=2)
+    _to_move = np.abs(_psi - 1 / len(_psi)).sum() / 2  # share of the amount not yet in place
     _ax.set_title(
-        f"t = {_t:.2f}: member {_start} holds {_psi[_start]:.3f}, even share {1 / len(_psi):.3f}",
+        f"t = {_t:.1f}: member {_start} holds {_psi[_start]:.3f} (even share {1 / len(_psi):.3f})\n"
+        f"still to move: {100 * _to_move:.0f} % of the amount",
         fontsize=10,
     )
     _ax.axis("off")
