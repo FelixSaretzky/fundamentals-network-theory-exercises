@@ -4,9 +4,9 @@ Hands-on exercise notebooks for _Fundamentals of Network Theory_ (Prof. Dr. Thom
 
 **Open the exercises: https://felixsaretzky.github.io/fundamentals-network-theory-exercises/**
 
-> **Status:** Exercises 0, 1 and 2 are online. The other exercises are added during the semester.
+> **Status:** Exercises 0, 1, 2 and 3 are online. The other exercises are added during the semester.
 >
-> Data of Exercises 1 and 2: see `notebooks/public/DATA_SOURCES.md` (Enron email network, MITRE ATT&CK ©2026 The MITRE Corporation; Internet AS graph from SNAP, western US power grid).
+> Data of Exercises 1 to 3: see `notebooks/public/DATA_SOURCES.md` (Enron email network, MITRE ATT&CK ©2026 The MITRE Corporation; Internet AS graph from SNAP, western US power grid; Zachary's karate club).
 
 ## For students
 

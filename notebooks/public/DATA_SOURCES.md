@@ -39,3 +39,18 @@ transmission line. Compiled by D. J. Watts and S. H. Strogatz, "Collective dynam
 'small-world' networks", Nature 393, 440-442 (1998); obtained from the Netzschleuder
 collection (https://networks.skewed.de/net/power), which mirrors M. E. J. Newman's network
 data page with the same edges and node ids.
+
+## Exercise 3
+
+`as_edges.csv` and `power_edges.csv`: the same two networks as in Exercise 2.
+
+`karate_edges.csv`, `karate_members.csv`: Zachary's karate club, 34 members (ids 0 to 33) and
+the 78 friendships among them. `club` is the group each member joined after the club split:
+"Mr. Hi" (the instructor, member 0) or "Officer" (the administrator, member 33). `x` and `y`
+are positions for drawing only. Source: W. W. Zachary, "An information flow model for conflict
+and fission in small groups", Journal of Anthropological Research 33, 452-473 (1977), as
+shipped with NetworkX (`karate_club_graph`).
+
+`power_layout.csv`: positions for drawing the power grid, computed with the stress layout of
+Graphviz (`neato -Gmode=sgd`). The data have no geographic coordinates, so the drawing is not
+a map.
