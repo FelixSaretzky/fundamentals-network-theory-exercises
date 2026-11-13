@@ -258,7 +258,8 @@ def _(mo):
     - **Remove the link 4–5.** How many eigenvalues are 0 now? How many components are
       there?
     - **Put it back, then add a second link** between the groups, say 3–6, then a third.
-      What happens to the smallest eigenvalue above 0, $\lambda_2$?
+      What happens to $\lambda_2$, the second smallest eigenvalue? (When the network
+      falls apart, $\lambda_2 = 0$: the orange bar then marks the smallest value above 0.)
     - **Cut node 8 off** by removing its links.
     - Watch the colours in the left plot, and the signs of the eigenvector of $\lambda_2$
       in the line above the plots: which nodes are positive, which negative?
@@ -658,7 +659,7 @@ def karate_plot(A_karate, fiedler_karate, members, np, plt, side_karate):
     _net.axis("off")
     _order = np.argsort(fiedler_karate)
     _bar.bar(range(len(_order)), fiedler_karate[_order], color=np.where(side_karate[_order], "C0", "C1"))
-    _bar.set_xticks(range(len(_order)), _order, fontsize=6)
+    _bar.set_xticks(range(len(_order)), _order, fontsize=8, rotation=90)
     _bar.axhline(0, color="k", lw=0.6)
     _bar.set(xlabel="member, sorted by entry", ylabel="entry of the Fiedler vector")
     _fig.tight_layout()
@@ -670,8 +671,9 @@ def karate_plot(A_karate, fiedler_karate, members, np, plt, side_karate):
 def _(mo):
     mo.md(r"""
     ❓ **Question 2.1.** Which two members does the Fiedler vector put on the "wrong" side?
-    Look at their entries in the right plot and at their friends in the left plot: why
-    exactly these two? Is the Laplacian wrong about them?
+    Look at their friends in the left plot: do they clearly belong to one camp? Is the
+    Laplacian wrong about them? Come back to the last part after Task 2.2, which also
+    counts the friendships cut by the real split of the club.
     """)
     return
 
@@ -700,7 +702,7 @@ def _(mo):
 
 
 @app.cell
-def task_2_2(A_as, A_karate, A_power, V_as, V_power, side_karate):
+def task_2_2(A_as, A_karate, A_power, V_as, V_power, members, side_karate):
     def cut_size(A, side):
         """Number of edges between the nodes in `side` and all other nodes."""
         # TODO: your code goes here
@@ -716,6 +718,7 @@ def task_2_2(A_as, A_karate, A_power, V_as, V_power, side_karate):
         }
         for _name, _A, _side in [
             ("karate club", A_karate, side_karate),
+            ("karate club, the real split", A_karate, (members["club"] == "Mr. Hi").to_numpy()),
             ("Internet (AS)", A_as, side_as),
             ("power grid", A_power, side_power),
         ]
@@ -805,7 +808,8 @@ def _(mo):
 
     $$\text{cut} = \tfrac14\, \mathbf{s}^T\mathbf{L}\,\mathbf{s} .$$
 
-    Check the formula on the karate club in one line of code in a new cell. Hint:
+    Check the formula on the karate club in one line of code in a new cell (hover between
+    two cells and click **+**, and give helper names a leading underscore). Hint:
     Question 1.1, and `np.where(side_karate, 1, -1)`.
     """)
     return
@@ -926,7 +930,7 @@ def bottleneck_view(A_power, connected_components, cut_choice, np, plt, pos_powe
     _ax.add_collection(
         LineCollection(_segs[_cut], colors="k", linewidths=2.5, linestyles=(0, (1, 1)), zorder=3)
     )
-    _colors = np.where(side_power, "C0", "C1")  # always the two sides of Task 2.2
+    _colors = np.where(side_power, "C0", "C1").astype(object)  # the two sides of Task 2.2
     if cut_choice.value == "nothing":
         _title = f"two sides of the Fiedler vector, {int(_between.sum())} lines between them (red)"
     else:
@@ -1027,12 +1031,10 @@ def _(mo):
     $|a_i(0)\, e^{-\lambda_i t}|$.
 
     - Which bars disappear first: those of the small or of the large eigenvalues?
-    - Which bar never changes? Its term is the final, even state: $1/34$ at every member.
-    - Start at the instructor: at $t = 0$ the bars of the *largest* eigenvalues are the
-      highest. A spike at one well-connected node is made of exactly the terms that decay
-      fastest.
-    - Which bar is the last one left before everything is even? That is why $\lambda_2$
-      sets the time scale.
+    - Which bar never changes?
+    - Start at the instructor: which bars are the highest at $t = 0$, and how fast do they
+      vanish?
+    - Which bar is the last one left before everything is even?
     - Start at member 11 or 16, at the edge of the club, instead of a leader. Does it take
       longer?
     """)
@@ -1157,7 +1159,7 @@ def _(mo):
 
 @app.cell
 def task_3_2(A_as, A_power, L_as, L_power, diffuse, np):
-    times = np.array([0.1, 0.3, 1, 3, 10, 30, 100, 300, 1000, 3000, 10000])
+    times = np.geomspace(0.1, 10000, 21)  # 0.1, 0.18, 0.32, 0.56, 1, ..., 10000
 
     def distance_to_even(psi):
         """Share of the total amount that still has to move to reach the even state."""
@@ -1195,8 +1197,9 @@ def spreading_plot(curve_as, curve_power, lam2_as, lam2_power, plt, times):
 def _(mo):
     mo.md(r"""
     ❓ **Question 3.2.** Read from your curves: roughly when is each network within 0.1 of
-    the even state? Compare with $1/\lambda_2$ from Task 1.2. Does the eigenvalue predict
-    the time scale? And where did you see the same contrast between the two networks in
+    the even state? Compare with $1/\lambda_2$ from Task 1.2. Does $1/\lambda_2$ get the
+    order of magnitude and the factor between the two networks right? (It cannot give the
+    exact moment.) And where did you see the same contrast between the two networks in
     Exercise 2?
     """)
     return
@@ -1242,9 +1245,9 @@ def _(mo):
     2. Menu (round button with three lines, top right) → **Export…** → tab **Python** →
        **Export notebook source**.
     3. Rename the downloaded `notebook.py` to `exercise03_<lastname>.py`.
-    4. On Moodle, assignment **Exercise 3**: **Add submission**, drag in the file,
-       **Save changes**, then **Submit assignment** and confirm. The status must read
-       **Submitted for grading**. The deadline is on Moodle.
+    4. On Moodle, assignment **Exercise 3: Graph Laplacian**: **Add submission**, drag in
+       the file, tick the submission statement and click **Save changes**. The status must
+       read **Submitted for grading**. The deadline is on Moodle.
 
     Need a break? `Ctrl+S`, then menu → **Share** → **Create WebAssembly link**, and keep
     the link: it restores your work on marimo.app. A reload of this page loses every edit.
